@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Enthusiast Form</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle, #2c3e50, #8e44ad);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        .error {
+            color: red;
+            font-size: 0.9rem;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center text-warning mb-4">Space Enthusiast Form</h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4 shadow">
+                    <h3 class="text-center">Tell Us About Your Space Interests!</h3>
+                    <form id="spaceForm" novalidate>
+                        <!-- Name Field -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-control">
+                            <div id="nameError" class="error"></div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" id="email" name="email" class="form-control">
+                            <div id="emailError" class="error"></div>
+                        </div>
+
+                        <!-- Favorite Planets -->
+                        <div class="mb-3">
+                            <label class="form-label">Which are your favorite planets? (Select all that apply)</label>
+                            <div class="form-check">
+                                <input type="checkbox" id="planetEarth" name="planets" value="Earth" class="form-check-input">
+                                <label for="planetEarth" class="form-check-label">Earth</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="planetMars" name="planets" value="Mars" class="form-check-input">
+                                <label for="planetMars" class="form-check-label">Mars</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="planetJupiter" name="planets" value="Jupiter" class="form-check-input">
+                                <label for="planetJupiter" class="form-check-label">Jupiter</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="planetSaturn" name="planets" value="Saturn" class="form-check-input">
+                                <label for="planetSaturn" class="form-check-label">Saturn</label>
+                            </div>
+                            <div id="planetsError" class="error"></div>
+                        </div>
+
+                        <!-- Interest in Celestial Phenomena -->
+                        <div class="mb-3">
+                            <label class="form-label">What celestial phenomena fascinate you the most?</label>
+                            <select id="phenomena" name="phenomena" class="form-select">
+                                <option value="">-- Select One --</option>
+                                <option value="Aurora Borealis">Aurora Borealis</option>
+                                <option value="Solar Eclipses">Solar Eclipses</option>
+                                <option value="Comets">Comets</option>
+                                <option value="Galaxies">Galaxies</option>
+                            </select>
+                            <div id="phenomenaError" class="error"></div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="button" class="btn btn-warning" onclick="validateForm()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Name Validation
+            const name = document.getElementById('name').value.trim();
+            const nameError = document.getElementById('nameError');
+            if (name === '') {
+                nameError.textContent = 'Name is required.';
+                isValid = false;
+            } else {
+                nameError.textContent = '';
+            }
+
+            // Email Validation
+            const email = document.getElementById('email').value.trim();
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (email === '') {
+                emailError.textContent = 'Email is required.';
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                emailError.textContent = 'Enter a valid email address.';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Planets Validation
+            const planets = document.querySelectorAll('input[name="planets"]:checked');
+            const planetsError = document.getElementById('planetsError');
+            if (planets.length === 0) {
+                planetsError.textContent = 'Select at least one favorite planet.';
+                isValid = false;
+            } else {
+                planetsError.textContent = '';
+            }
+
+            // Phenomena Validation
+            const phenomena = document.getElementById('phenomena').value;
+            const phenomenaError = document.getElementById('phenomenaError');
+            if (phenomena === '') {
+                phenomenaError.textContent = 'Select a celestial phenomenon.';
+                isValid = false;
+            } else {
+                phenomenaError.textContent = '';
+            }
+
+            // Final Submission
+            if (isValid) {
+                alert('Thank you for submitting the form!');
+            }
+        }
+    </script>
+</body>
+</html>
